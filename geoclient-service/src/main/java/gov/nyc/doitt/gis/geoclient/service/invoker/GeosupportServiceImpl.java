@@ -101,6 +101,12 @@ public class GeosupportServiceImpl implements GeosupportService {
             latLongConverter.convert(id(), result);
             LOGGER.debug("{} result post lat/lon enhancement {}", id(), result);
 
+            // Enrich with NTA 2020 name if the result contains an NTA 2020 code
+            Object nta2020 = result.get("nta2020");
+            if (nta2020 instanceof String && !((String) nta2020).isBlank()) {
+                result.put("nta2020Name", serviceConfiguration.ntaLookupService().lookupName((String) nta2020));
+            }
+
             return result;
         }
 

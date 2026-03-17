@@ -40,6 +40,7 @@ import gov.nyc.doitt.gis.geoclient.service.invoker.DoubleFieldSetConverter;
 import gov.nyc.doitt.gis.geoclient.service.invoker.FieldSetConverter;
 import gov.nyc.doitt.gis.geoclient.service.invoker.GeosupportService;
 import gov.nyc.doitt.gis.geoclient.service.invoker.GeosupportServiceImpl;
+import gov.nyc.doitt.gis.geoclient.service.lookup.NtaLookupService;
 import gov.nyc.doitt.gis.geoclient.service.mapper.GeosupportVersionMapper;
 import gov.nyc.doitt.gis.geoclient.service.mapper.Mapper;
 import gov.nyc.doitt.gis.geoclient.service.mapper.ResponseStatusMapper;
@@ -142,6 +143,11 @@ public class AppConfig {
     @Bean
     public GeosupportConfig geosupportConfiguration() {
         return new GeosupportConfig(geoclient());
+    }
+
+    @Bean
+    public NtaLookupService ntaLookupService() {
+        return new NtaLookupService();
     }
 
     @Bean
