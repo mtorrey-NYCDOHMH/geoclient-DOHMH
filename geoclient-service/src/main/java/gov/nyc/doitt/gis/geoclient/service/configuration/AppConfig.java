@@ -41,6 +41,7 @@ import gov.nyc.doitt.gis.geoclient.service.invoker.FieldSetConverter;
 import gov.nyc.doitt.gis.geoclient.service.invoker.GeosupportService;
 import gov.nyc.doitt.gis.geoclient.service.invoker.GeosupportServiceImpl;
 import gov.nyc.doitt.gis.geoclient.service.lookup.NtaLookupService;
+import gov.nyc.doitt.gis.geoclient.service.lookup.UhfLookupService;
 import gov.nyc.doitt.gis.geoclient.service.mapper.GeosupportVersionMapper;
 import gov.nyc.doitt.gis.geoclient.service.mapper.Mapper;
 import gov.nyc.doitt.gis.geoclient.service.mapper.ResponseStatusMapper;
@@ -148,6 +149,11 @@ public class AppConfig {
     @Bean
     public NtaLookupService ntaLookupService() {
         return new NtaLookupService();
+    }
+
+    @Bean
+    public UhfLookupService uhfLookupService() {
+        return new UhfLookupService();
     }
 
     @Bean
