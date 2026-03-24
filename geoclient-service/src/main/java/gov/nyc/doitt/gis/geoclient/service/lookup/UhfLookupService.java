@@ -52,12 +52,10 @@ public class UhfLookupService {
     public UhfLookupService() {
         Map<String, String> nameByCode = loadNamesByCode();
         Map<String, String[]> zipMaps = buildZipMaps(nameByCode);
-        this.uhfNameByZip = Collections.unmodifiableMap(
-            zipMaps.entrySet().stream().collect(
-                java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0])));
-        this.uhfCodeByZip = Collections.unmodifiableMap(
-            zipMaps.entrySet().stream().collect(
-                java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[1])));
+        this.uhfNameByZip = Collections.unmodifiableMap(zipMaps.entrySet().stream().collect(
+            java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0])));
+        this.uhfCodeByZip = Collections.unmodifiableMap(zipMaps.entrySet().stream().collect(
+            java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[1])));
     }
 
     /**
@@ -148,7 +146,7 @@ public class UhfLookupService {
                     String uhfCode = parts[3].trim();
                     String name = nameByCode.get(uhfCode);
                     if (name != null) {
-                        map.put(zip, new String[]{name, uhfCode});
+                        map.put(zip, new String[] { name, uhfCode });
                     }
                 }
             }
