@@ -47,10 +47,17 @@ public class UhfLookupService {
     private static final String NAMES_CSV_PATH = "/lookup/uhf_names.csv";
 
     private final Map<String, String> uhfNameByZip;
+    private final Map<String, String> uhfCodeByZip;
 
     public UhfLookupService() {
         Map<String, String> nameByCode = loadNamesByCode();
-        this.uhfNameByZip = buildZipToNameMap(nameByCode);
+        Map<String, String[]> zipMaps = buildZipMaps(nameByCode);
+        this.uhfNameByZip = Collections.unmodifiableMap(
+            zipMaps.entrySet().stream().collect(
+                java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0])));
+        this.uhfCodeByZip = Collections.unmodifiableMap(
+            zipMaps.entrySet().stream().collect(
+                java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[1])));
     }
 
     /**
@@ -65,6 +72,19 @@ public class UhfLookupService {
             return "";
         }
         return uhfNameByZip.getOrDefault(zipCode.trim(), "");
+    }
+
+    /**
+     * Returns the UHF 42 code for the given zip code, or an empty string if not found.
+     *
+     * @param zipCode the 5-digit zip code string (e.g. {@code "10001"})
+     * @return the UHF code (e.g. {@code "306"}), or {@code ""} if not found
+     */
+    public String lookupCode(String zipCode) {
+        if (zipCode == null) {
+            return "";
+        }
+        return uhfCodeByZip.getOrDefault(zipCode.trim(), "");
     }
 
     private Map<String, String> loadNamesByCode() {
@@ -97,8 +117,9 @@ public class UhfLookupService {
         return map;
     }
 
-    private Map<String, String> buildZipToNameMap(Map<String, String> nameByCode) {
-        Map<String, String> map = new HashMap<>();
+    // Returns map of zip -> [name, code]
+    private Map<String, String[]> buildZipMaps(Map<String, String> nameByCode) {
+        Map<String, String[]> map = new HashMap<>();
         try (InputStream is = UhfLookupService.class.getResourceAsStream(ZIP_CSV_PATH)) {
             if (is == null) {
                 LOGGER.error("UHF zip CSV not found at classpath:{}", ZIP_CSV_PATH);
@@ -119,16 +140,16 @@ public class UhfLookupService {
                     String uhfCode = parts[3].trim();
                     String name = nameByCode.get(uhfCode);
                     if (name != null) {
-                        map.put(zip, name);
+                        map.put(zip, new String[]{name, uhfCode});
                     }
                 }
             }
-            LOGGER.info("Loaded {} zip-to-UHF-name entries from {}", map.size(), ZIP_CSV_PATH);
+            LOGGER.info("Loaded {} zip-to-UHF entries from {}", map.size(), ZIP_CSV_PATH);
         }
         catch (IOException e) {
             LOGGER.error("Failed to load UHF zip CSV from classpath:{}", ZIP_CSV_PATH, e);
             return Collections.emptyMap();
         }
-        return Collections.unmodifiableMap(map);
+        return map;
     }
 }
