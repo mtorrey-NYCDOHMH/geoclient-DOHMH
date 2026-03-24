@@ -98,9 +98,13 @@ public class UhfLookupService {
             String line;
             boolean firstLine = true;
             while ((line = reader.readLine()) != null) {
-                if (firstLine) { firstLine = false; continue; }
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
                 line = line.trim();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty())
+                    continue;
                 // Line format: "101","Kingsbridge - Riverdale","Bronx",...
                 String stripped = line.replace("\"", "");
                 String[] parts = stripped.split(",", -1);
@@ -129,9 +133,13 @@ public class UhfLookupService {
             String line;
             boolean firstLine = true;
             while ((line = reader.readLine()) != null) {
-                if (firstLine) { firstLine = false; continue; }
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
                 line = line.trim();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty())
+                    continue;
                 // Line format: "10001",10001,"10001",306
                 String stripped = line.replace("\"", "");
                 String[] parts = stripped.split(",", -1);
