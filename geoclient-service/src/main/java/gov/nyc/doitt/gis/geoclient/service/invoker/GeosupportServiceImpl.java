@@ -107,6 +107,14 @@ public class GeosupportServiceImpl implements GeosupportService {
                 result.put("nta2020Name", serviceConfiguration.ntaLookupService().lookupName((String) nta2020));
             }
 
+            // Enrich with UHF 42 code and neighborhood name if the result contains a zip code
+            Object zipCode = result.get("zipCode");
+            if (zipCode instanceof String && !((String) zipCode).isBlank()) {
+                String zip = (String) zipCode;
+                result.put("uhfCode", serviceConfiguration.uhfLookupService().lookupCode(zip));
+                result.put("uhfName", serviceConfiguration.uhfLookupService().lookupName(zip));
+            }
+
             return result;
         }
 
