@@ -1,5 +1,5 @@
 README-this-fork.md
-Last modified: 2026-03-17 10:59
+Last modified: 2026-03-25 17:23
 Mark Torrey
 mtorrey@health.nyc.gov
 
@@ -38,7 +38,7 @@ This fork of geoclient is for DOHMH, particularly with the goal of implementing 
 	* Then run the java executable, like: `java -jar ~/geoclient/geoclient-service/build/libs/geoclient.jar`
 		* If it runs correctly, you will see a `geoclient v2` ascii logo 
 		* It's possible you might need to run it with java 17 instead of whatever is native on the system you are currently running on, in that case (if you used sdk) use something like: `~/.sdkman/candidates/java/17.0.11-tem/bin/java -jar ~/geoclient/geoclient-service/build/libs/geoclient.jar`
-* Check that it is running and geocoding in a browser or with `curl -v "http://address.goes.here/"`:
+* Check that it is running and geocoding in a browser (or with `curl -v`):
 	* Check you get a response for version: `http://localhost:8080/geoclient/v2/version`
 	* Check an address: `http://localhost:8080/geoclient/v2/address?houseNumber=280&street=Riverside+Drive&borough=Manhattan`
 	* This one does natural language searches: `http://localhost:8080/geoclient/v2/search?input=350+Fifth+Avenue+Manhattan`
