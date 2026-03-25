@@ -1,5 +1,7 @@
 # Geoclient
 
+This fork adds UHF and NTA return fields. See [README-this-fork](README-this-fork.md) for details.
+
 **Geoclient** is an API for geocoding[^1] locations in New York City. In addition to returning spatial coordinates, Geoclient provides access to a large variety of official NYC attribute data based on the type of location requested.
 
 Geoclient relies on [*Geosupport*](https://www.nyc.gov/site/planning/data-maps/open-data.page#geocoding_application), NYC's official geocoder of record, for primary geocoding services. Geosupport is a separate application written and maintained by the

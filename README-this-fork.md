@@ -1,12 +1,13 @@
 README-this-fork.md
-Last modified: 2026-03-17 10:59
-Mark Torrey
-mtorrey@health.nyc.gov
+Last modified: 2026-03-25 13:38
+Mark Torrey (mtorrey@health.nyc.gov) & Shohruzbek Abdumuminov
 
-This fork of geoclient is for DOHMH, particularly with the goal of implementing some additional lookups (NTA and UHF).
+# Geoclient DOHMH: README-this-fork
+This fork implements lookups for NTA name, UHF code, and UHF names (geographies commonly used by DOHMH). These additional lookups are added as flat lookup tables to the repo, and code is added to inject the results into the json returned by geoclient.
 
+Additional notes below are just details from compiling and running and apply to the original geoclient repo as well.
 
-## geoclient additonal compiling notes
+## Additonal compiling notes
 * geoclient source documentation: https://mlipper.github.io/geoclient/docs/current/user-guide/#building-from-source
     * these notes give examples that assume you have cloned geoclient into your home directory `~/geoclient/` 
         * note, if you cloned this forked repo instead of the upstream geoclient, the folder will be `geoclient-DOHMH`
@@ -29,7 +30,7 @@ This fork of geoclient is for DOHMH, particularly with the goal of implementing 
 	* you can do `gradlew clean` to clean, or `gradlew clean build` to clean before building
 * after BUILD SUCCESSFUL, search for geoclient.jar in the source diretory, that's your executable.
 
-## running notes
+## Additional running notes
 * `geoclient.jar` includes a Spring Boot embedded Tomcat web server, so that is your executable file:
 	* You still need to configure your environment variables first, in bash:
 		* `export GEOFILES=/usr/share/R/library/geocoding_tests/version-24d_24.4/fls/`
